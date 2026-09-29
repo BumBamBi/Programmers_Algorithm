@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void show(vector<vector<int>> dots)
+{
+    for(auto e:dots)
+    {
+        for(auto ee:e)
+        {
+            cout << ee;
+        }
+        cout << endl;
+    }
+}
+
+double slope(int x1, int y1, int x2, int y2)
+{
+    return (double)(y2-y1)/(double)(x2-x1);
+}
+
+int solution(vector<vector<int>> dots) {
+    int answer = 0;
+    
+    // show(dots);
+    
+    sort(dots.begin(), dots.end());
+    
+    vector<double> ss(6, 0);
+    
+    // 점이 4개라면 생길 수 있는 3가지 경우 비교
+    ss[0] = slope(dots[0][0], dots[0][1], dots[1][0], dots[1][1]);
+    ss[1] = slope(dots[2][0], dots[2][1], dots[3][0], dots[3][1]);
+    
+    ss[2] = slope(dots[0][0], dots[0][1], dots[2][0], dots[2][1]);
+    ss[3] = slope(dots[1][0], dots[1][1], dots[3][0], dots[3][1]);
+    
+    ss[4] = slope(dots[0][0], dots[0][1], dots[3][0], dots[3][1]);
+    ss[5] = slope(dots[1][0], dots[1][1], dots[2][0], dots[2][1]);
+    
+    if((ss[0] == ss[1]) || (ss[2] == ss[3]) || (ss[4] == ss[5]))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+    
+}
