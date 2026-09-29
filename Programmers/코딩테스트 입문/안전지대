@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// 8방의 인덱스
+int index_x[8] = {0, -1, -1, -1, 0, 1, 1, 1};
+int index_y[8] = {1, 1, 0, -1, -1, -1, 0, 1};
+
+// 설치가 가능한 index범위인지 확인
+bool isPossible(vector<vector<int>> v, int y, int x, int i)
+{
+    // index가 초과되면 false
+    if( (x+index_x[i] < 0)              ||
+        (x+index_x[i] >= v[0].size())   ||
+        (y+index_y[i] < 0)              ||
+        (y+index_y[i] >= v.size())      )
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+int solution(vector<vector<int>> board) {
+    int answer = 0;
+    
+    // x축
+    for(int x=0; x<board[0].size(); x++)
+    {
+        // y축
+        for(int y=0; y<board.size(); y++)
+        {
+            // 폭탄이라면
+            if(board[y][x] == 1)
+            {
+                // 8방을 확인해서
+                for(int i=0; i<8; i++)
+                {
+                    // index가 가능하다면
+                    if(isPossible(board, y, x, i))
+                    {
+                        cout << y+index_y[i] << "," << x+index_x[i] << endl;
+                        
+                        // 폭탄이 아닌 비어있는 자리를
+                        if(board[y+index_y[i]][x+index_x[i]] != 1)
+                        {
+                            // 위험지대(2)로 세팅
+                            board[y+index_y[i]][x+index_x[i]] = 2;
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    // 안전지대라면 +1
+    for(auto e: board)
+    {
+        for(auto ee:e)
+        {
+            if(ee == 0)
+            {
+                answer++;
+            }
+        }
+    }
+    
+    
+    
+    return answer;
+}
