@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int solution(vector<string> babbling) {
+    int answer = 0;
+    
+    // 문장들 하나씩 꺼내기
+    for(auto str:babbling)
+    {   
+        // 현재 단어가 계속 살펴볼 수 있는 상태인지
+        bool isContinue = true;
+
+        // 한번밖에 못쓰기 때문에 flg로 처리
+        vector<bool> flag(5, true);
+        
+        int index = 0; // str.size();
+        
+        do{
+            if(str.substr(index, 3) == "aya" && flag[0])
+            {
+                flag[0] = false;
+                index += 2;
+            }
+            else if(str.substr(index, 2) == "ye" && flag[1])
+            {
+                flag[1] = false;
+                index += 1;
+            }
+            else if(str.substr(index, 3) == "woo" && flag[2])
+            {
+                flag[2] = false;
+                index += 2;
+            }
+            else if(str.substr(index, 2) == "ma" && flag[3])
+            {
+                flag[3] = false;
+                index += 1;
+            }
+            else
+            {
+                isContinue = false;
+            }
+            
+            index++;
+        }
+        while(isContinue && index < str.size());
+        
+        if(isContinue)
+        {
+            answer++;
+        }
+            
+            
+    }
+    
+    return answer;
+}
