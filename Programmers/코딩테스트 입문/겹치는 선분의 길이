@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int solution(vector<vector<int>> lines) {
+    int answer = 0;
+
+    // 실제로 그래프 만들기(음수처리를 위한 +100)
+    vector<int> flag(200, 0);
+    
+    for(auto e:lines)
+    {
+        // 이상/미만 으로 세팅(이상/이하로 하면 중복됨)
+        for(int i=e[0]+100; i<e[1]+100; i++)
+        {
+            flag[i]++;
+        }
+    }
+    
+    for(auto e:flag)
+    {
+        if(e > 1)
+        {
+            answer++;
+        }
+    }
+    
+    return answer;
+}
