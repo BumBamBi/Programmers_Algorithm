@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+
+
+using namespace std;
+
+vector<int> solution(int numer1, int denom1, int numer2, int denom2) {
+    vector<int> answer;
+    
+    /*
+    numer1/denom1;
+        
+    numer2/denom2;
+    */
+    
+    // 분자
+    int x1 = numer1*denom2;
+    int x2 = numer2*denom1;
+    int x = x1+x2;
+    
+    // 공통분모
+    int y = denom1*denom2;
+
+    // 분자/분모 중 큰 수까지 약분 해보기
+    for(int i=2; i<=max(x,y); i++)
+    {
+        // 둘다 나누어 떨어지는 값이 있다면(약분 가능)
+        if((x%i == 0) && (y%i == 0))
+        {
+            // 약분처리
+            x = x/i;
+            y = y/i;
+            
+            // 초기화
+            i = 1;
+        }
+    }
+    
+    answer.push_back(x);
+    answer.push_back(y);
+    
+    return answer;
+}
