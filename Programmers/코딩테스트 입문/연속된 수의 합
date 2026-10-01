@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+vector<int> solution(int num, int total) {
+    vector<int> answer;
+    
+    // 짝수
+    if((num%2) == 0)
+    {
+        // 중간값
+        int mid_first_val = (total/(num/2))/2;
+        
+        // 시작값
+        int start_val = mid_first_val - ((num/2)-1);
+        
+        for(int i=start_val; i<start_val+num; i++)
+        {
+            answer.push_back(i);
+        }
+    }
+    // 홀수
+    else
+    {
+        // 중간값
+        int mid_val = total/num;
+        
+        // 시작값
+        int start_val = mid_val - ((num - 1)/2);
+        
+        for(int i=start_val; i<start_val+num; i++)
+        {
+            answer.push_back(i);
+        }
+    }
+    
+    return answer;
+}
